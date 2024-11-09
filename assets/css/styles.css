@@ -55,7 +55,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     height: 54px;
     border-radius: 8px;
     outline: none;
@@ -98,6 +98,7 @@ body {
 .tasks-container ul  {
     list-style: none;
     padding: 0;
+    
 }
 
 .tasks-container .task-item {
@@ -107,8 +108,9 @@ body {
     padding: 20px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin: 15px 0;
+    gap: 10px;
 }
 
 .tasks-container .task-item p {
@@ -119,7 +121,37 @@ body {
 }
 
 .tasks-container .task-item button {
+    position: relative;
     background-color: transparent;
     border: 0;
+    cursor: pointer;
+    display: inline-block;
     
+}
+
+.completeTaskBtn {
+    width: 18px;
+    height: 18px;
+}
+
+.completeTaskBtn svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.completeTaskBtn .completed-icon {
+    opacity: 0;
+}
+
+.task-item.completed .completed-icon {
+    opacity: 1;
+}
+
+.task-item.completed .uncompleted-icon {
+    opacity: 0;
+}
+
+.task-item.completed p{
+    text-decoration: line-through;
+    color: #808080;
 }
