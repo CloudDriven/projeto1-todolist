@@ -54,9 +54,31 @@ const handleCompleteTask = (taskIndex) => {
   handleUpdateTaskBadges();
 };
 
-const handleRemoveTask = () => {
+const handleRemoveTask = (taskIndex) => {
+    const taskElement = document.querySelector(`#task-item-${taskIndex}`);
+  
+    if (!taskElement) {
+      return;
+    }
+
+    taskElement.remove();
+
+    const getLocalStorageTasks = window.localStorage.getItem("tasks");
+
+    if(!getLocalStorageTasks){
+        return;
+    }
+
+    const parsedLocalStorageTasks = JSON.parse(getLocalStorageTasks);
+
+    parsedLocalStorageTasks.splice(taskIndex, 1);
     
-}
+    window.localStorage.setItem("tasks", JSON.stringify(parsedLocalStorageTasks));
+
+    tasks = parsedLocalStorageTasks;
+
+    handleUpdateTaskBadges();
+};
 
 const handleTasks = () => {
     const form = document.querySelector("#formElement");
@@ -137,7 +159,7 @@ const handleTasks = () => {
 
                 </button>
                     <p>${task.message}</p>
-                    <button>
+                    <button onclick="handleRemoveTask(${taskIndex})">
                     <!--- SVG Remove Button --->
                         <svg 
                         width="24" 
@@ -205,7 +227,7 @@ const handleTasks = () => {
 
                 </button>
                     <p>${inputValue}</p>
-                    <button>
+                    <button onclick="handleRemoveTask(${tasks.length - 1})">
                     <!--- SVG Remove Button --->
                         <svg 
                         width="24" 
@@ -229,4 +251,4 @@ const handleTasks = () => {
     form.addEventListener("submit", handleCreateNewTask);
 };
 
-window.addEventListener("load", handleTasks)
+window.addEventListener("load", handleTasks);
